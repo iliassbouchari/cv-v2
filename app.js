@@ -92,7 +92,7 @@ function projects(t){var s=$("s-pj");if(s)s.remove();s=el("section","sec");s.id=
 PROJ.forEach(function(p,i){var d=el("article","pcard"),pr=t.projects[i],has=!!p.url;
 d.innerHTML='<div class="pimg">'+art(p.k)+'</div><h3>'+esc(pr[0])+'</h3><p>'+esc(pr[1])+'</p><div class="chips" style="margin-top:0">'+p.chips.map(function(c){return '<span class="chip ltr">'+esc(c)+'</span>'}).join("")+'</div>'+
 (has?'<a class="plink" href="'+esc(p.url)+'" target="_blank" rel="noopener noreferrer">'+esc(t.view)+' &rarr;</a>':'<span class="plink dis" aria-disabled="true" title="'+esc(t.todo)+'">'+esc(t.view)+' &rarr;</span>');g.appendChild(d)});
-s.appendChild(g);var e=$("s-edu");e.parentNode.insertBefore(s,e)}
+s.appendChild(g);var e=document.querySelector("footer");e.parentNode.insertBefore(s,e)}
 
 /* ---------- topology ---------- */
 var NODES={net:{x:180,y:30,w:120,h:38,kw:["DNS","LAN/WAN"]},fw:{x:180,y:100,w:130,h:40,kw:["Fortinet","IPSec"]},sw:{x:180,y:172,w:130,h:40,kw:["Cisco","LAN/WAN","DHCP","IPv4"]},ad:{x:52,y:262,w:88,h:46,kw:["Windows Server","Active Directory","DNS","DHCP"]},px:{x:138,y:262,w:78,h:46,kw:["Proxmox","ESXi","Nutanix"]},dk:{x:222,y:262,w:78,h:46,kw:["Docker","Ubuntu","RedHat"]},zb:{x:308,y:262,w:78,h:46,kw:["Zabbix"]}};
@@ -118,11 +118,11 @@ function contact(t){var c=document.querySelector("#s-ct .card.ct");if(!c||c.quer
 var s=el("div","ssh ltr","$ ssh iliass@casablanca");s.setAttribute("aria-hidden","true");c.insertBefore(s,c.firstChild);
 var m=c.querySelector("a[href^='mailto:']");if(m){var b=el("button","cp",esc(t.copy));b.type="button";b.setAttribute("aria-label",t.copy+" email");b.addEventListener("click",function(){var v="Bouchariliass@gmail.com";function ok(){toast(t.copied)}
 if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(v).then(ok,function(){fb(v);ok()});else{fb(v);ok()}});m.parentNode.parentNode.appendChild(b)}
-var sec=c.parentNode;if(!sec.querySelector(".soc")){var so=el("div","soc");so.setAttribute("aria-label",t.soc);[["TryHackMe","tryhackme"],["HackTheBox","hackthebox"],["Credly","credly"]].forEach(function(p){var u=LINKS[p[1]];var a=el("a","chip"+(u?"":" dis"),esc(p[0]));if(u){a.href=u;a.target="_blank";a.rel="noopener noreferrer"}else{a.setAttribute("role","link");a.setAttribute("aria-disabled","true");a.title=t.todo;a.tabIndex=0}so.appendChild(a)});sec.appendChild(so)}}
+var sec=c.parentNode;}
 function fb(v){var i=document.createElement("textarea");i.value=v;i.style.cssText="position:fixed;opacity:0";document.body.appendChild(i);i.select();try{document.execCommand("copy")}catch(e){}i.remove()}
 
 /* ---------- navigation ---------- */
-function nav(t){var items=[["s-exp",t.exp],["s-pj",t.proj],["s-edu",t.edu],["s-topo",t.skills],["s-ct",t.contact]];
+function nav(t){var items=[["s-exp",t.exp],["s-edu",t.edu],["s-topo",t.skills],["s-ct",t.contact],["s-pj",t.proj]];
 $("links").innerHTML=items.map(function(a){return '<a href="#'+a[0]+'">'+esc(a[1])+"</a>"}).join("");
 var b=$("bnav");b.setAttribute("aria-label",X[cur].sec);b.innerHTML=items.map(function(a){return '<a href="#'+a[0]+'">'+esc(a[1])+"</a>"}).join("")}
 function prog(){var p=$("prog"),tk=false;function u(){tk=false;var h=document.documentElement,m=h.scrollHeight-innerHeight;p.style.transform="scaleX("+(m>0?Math.min(1,scrollY/m):0)+")"}
