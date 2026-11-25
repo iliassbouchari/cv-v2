@@ -1,6 +1,6 @@
 /* Portfolio enhancements (vanilla JS). Edit LINKS and PROJ urls below to fill the TODOs. */
 (function(){"use strict";
-var LINKS={tryhackme:"",hackthebox:"",credly:""}; /* TODO: paste your profile URLs */
+var LINKS={credly:"https://www.credly.com/users/iliass-bouchari/badges/credly"}; /* TODO: paste your profile URLs */
 var PROJ=[{k:"ad",url:"",chips:["Active Directory", "Windows Server", "DNS", "OU"]},{k:"js",url:"",chips:["PowerShell", "Active Directory", "DNS"]},{k:"gp",url:"",chips:["GPO", "PowerShell", "MSI", "Office 2016"]},{k:"sc",url:"",chips:["PowerShell", "GPO", "WinRE", "HP BIOS"]},{k:"hd",url:"",chips:["Hiren's Boot CD PE", "BIOS", "Printers", "Troubleshooting"]},{k:"fg",url:"",chips:["Fortinet", "FortiGate", "FortiOS", "Firewall"]}]; /* TODO: write-up URLs */
 var X={
 en:{avail:"Available for internship \u00b7 Casablanca",proj:"Projects & labs",view:"View write-up",todo:"Link to be added",
@@ -89,10 +89,14 @@ else if(k==="hd")a+='<rect x="60" y="20" width="130" height="86" rx="10" class="
 else a+='<rect x="130" y="20" width="60" height="110" rx="6" class="f2"/><path d="M130 57h60M130 93h60M160 20v37M145 57v36M175 57v36M160 93v37" class="ln"/><path d="M30 75h90M200 75h90" class="ln"/><path d="M110 65l12 10-12 10M270 65l12 10-12 10" class="ln"/><circle cx="40" cy="75" r="9" class="f3"/><circle cx="280" cy="75" r="9" class="ok"/>';
 return a+"</svg>"}
 function projects(t){var s=$("s-pj");if(s)s.remove();s=el("section","sec");s.id="s-pj";var h=el("h2","",esc(t.proj));s.appendChild(h);var g=el("div","pgrid");
-PROJ.forEach(function(p,i){var d=el("article","pcard"),pr=t.projects[i],has=!!p.url;
+PROJ.forEach(function(p,i){var d=el("article","pcard"),pr=t.projects[i],has=true;
 d.innerHTML='<div class="pimg">'+art(p.k)+'</div><h3>'+esc(pr[0])+'</h3><p>'+esc(pr[1])+'</p><div class="chips" style="margin-top:0">'+p.chips.map(function(c){return '<span class="chip ltr">'+esc(c)+'</span>'}).join("")+'</div>'+
-(has?'<a class="plink" href="'+esc(p.url)+'" target="_blank" rel="noopener noreferrer">'+esc(t.view)+' &rarr;</a>':'<span class="plink dis" aria-disabled="true" title="'+esc(t.todo)+'">'+esc(t.view)+' &rarr;</span>');g.appendChild(d)});
-s.appendChild(g);var e=document.querySelector("footer");e.parentNode.insertBefore(s,e)}
+(has?'<a class="plink" data-pdf="'+p.k+'" href="'+(BL[p.k]||"#")+'" target="_blank" rel="noopener noreferrer">'+esc(t.view)+' &rarr;</a>':'<span class="plink dis" aria-disabled="true" title="'+esc(t.todo)+'">'+esc(t.view)+' &rarr;</span>');g.appendChild(d)});
+s.appendChild(g);var e=document.querySelector("footer");e.parentNode.insertBefore(s,e);hyd(t)}
+var BL={},BP={};
+function getPdf(k){if(BP[k])return BP[k];BP[k]=fetch("rpt-"+k+".b64?v=1").then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(b){var bin=atob(b.replace(/\s/g,"")),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);BL[k]=URL.createObjectURL(new Blob([u],{type:"application/pdf"}));return BL[k]});return BP[k]}
+function hyd(t){document.querySelectorAll("a.plink[data-pdf]").forEach(function(a){var k=a.dataset.pdf;if(BL[k])a.href=BL[k];else getPdf(k).then(function(u){a.href=u}).catch(function(){});
+a.addEventListener("click",function(ev){if(BL[k])return;ev.preventDefault();var w=window.open("","_blank");getPdf(k).then(function(u){if(w)w.location.href=u;else location.href=u}).catch(function(){if(w)w.close()})})})}
 
 /* ---------- topology ---------- */
 var NODES={net:{x:180,y:30,w:120,h:38,kw:["DNS","LAN/WAN"]},fw:{x:180,y:100,w:130,h:40,kw:["Fortinet","IPSec"]},sw:{x:180,y:172,w:130,h:40,kw:["Cisco","LAN/WAN","DHCP","IPv4"]},ad:{x:52,y:262,w:88,h:46,kw:["Windows Server","Active Directory","DNS","DHCP"]},px:{x:138,y:262,w:78,h:46,kw:["Proxmox","ESXi","Nutanix"]},dk:{x:222,y:262,w:78,h:46,kw:["Docker","Ubuntu","RedHat"]},zb:{x:308,y:262,w:78,h:46,kw:["Zabbix"]}};
@@ -173,7 +177,8 @@ addEventListener("keydown",function(e){var k=e.key.length===1?e.key.toLowerCase(
 
 /* ---------- language hook ---------- */
 function labels(t){$("badge").lastChild.textContent=t.avail;$("tterm").textContent=t.term;$("tin").placeholder=t.ph;$("tin").setAttribute("aria-label",t.ph);$("tcmds").setAttribute("aria-label",t.cmdhint)}
-window.onLang=function(l){cur=X[l]?l:"fr";var t=X[cur];labels(t);nav(Object.assign({},T[cur],{proj:t.proj,skills:T[cur].skills}));stats(t);topo(t);projects(t);tl(t);contact(t);foot();reveal(document);decrypt()};
+function credly(){var c=$("top");if(!c||$("cr-chip"))return;var a=document.createElement("a");a.id="cr-chip";a.className="chip ltr";a.href=LINKS.credly;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Credly";a.style.cssText="text-decoration:none;color:inherit";c.appendChild(a)}
+window.onLang=function(l){credly();cur=X[l]?l:"fr";var t=X[cur];labels(t);nav(Object.assign({},T[cur],{proj:t.proj,skills:T[cur].skills}));stats(t);topo(t);projects(t);tl(t);contact(t);foot();reveal(document);decrypt()};
 function boot(){initNet();initTerm();prog();window.onLang(document.documentElement.lang||"fr");}
 boot();
 })();
