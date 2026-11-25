@@ -120,7 +120,7 @@ h1{font-size:clamp(2.5rem,7.5vw,5.4rem);line-height:.98;font-weight:500;letter-s
 
 /* --- enhancements --- */
 :root{--ok:#13803f;--acc:#a8470c;--accbg:#f7e4d2}
-[data-theme=dark]{--ok:#4ade80;--acc:#f28d3e}
+[data-theme=dark]{--ok:#4ade80;--acc:#f28d3e;--accbg:#352519}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:6px}
 .idle *{animation-play-state:paused!important}
 .prog{position:fixed;top:0;left:0;right:0;height:3px;background:var(--acc);transform:scaleX(0);transform-origin:0 50%;z-index:60;pointer-events:none}
@@ -152,7 +152,7 @@ h1{font-size:clamp(2.5rem,7.5vw,5.4rem);line-height:.98;font-weight:500;letter-s
 .paused .tl2,.paused .badge i{animation-play-state:paused}
 .nd{cursor:pointer;outline:0}
 .nd rect{fill:var(--bg);stroke:var(--ink);stroke-width:1.5;transition:fill .15s,stroke .15s}
-.nd text{fill:var(--ink);font:600 11px 'Poppins',sans-serif;pointer-events:none}
+.nd text{fill:var(--ink);font:600 12.5px 'Poppins',sans-serif;pointer-events:none}
 .nd:hover rect,.nd.sel rect{fill:var(--accbg);stroke:var(--acc)}
 .nd:focus-visible rect{stroke:var(--acc);stroke-width:3}
 .tcap{min-height:3em;margin:12px auto 0;max-width:520px;text-align:center;font-weight:600;font-size:.92rem}
@@ -169,7 +169,7 @@ h1{font-size:clamp(2.5rem,7.5vw,5.4rem);line-height:.98;font-weight:500;letter-s
 .pcard p{margin:0 4px;color:var(--mute);font-size:.88rem}
 .pcard .chips{margin:0 4px}
 .plink{margin:auto 4px 0;padding-top:4px;font-weight:600;font-size:.88rem;color:var(--acc);text-decoration:none}
-.plink.dis,.chip.dis{opacity:.6;cursor:not-allowed;border-style:dashed}
+.plink.dis{opacity:.6;cursor:not-allowed}.chip.dis{opacity:.7;cursor:not-allowed;border-style:dashed}
 a.plink:hover{text-decoration:underline}
 .tl .lg{font:600 .76rem ui-monospace,Menlo,Consolas,monospace;margin-inline-end:8px}.lg.ok{color:var(--ok)}.lg.run{color:var(--acc)}
 .tl .yr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;border-radius:6px}
@@ -188,7 +188,7 @@ footer #upt{font:500 .76rem ui-monospace,Menlo,Consolas,monospace;margin-top:6px
 .bnav a:active,.bnav a:focus-visible{background:var(--acc);color:#fff}
 body{padding-bottom:78px}.toast{bottom:84px}
 .stats{grid-template-columns:repeat(2,1fr)}
-.tout{height:220px}
+.tout{height:220px}.tbox{padding:6px}
 }
 @media(max-width:380px){.bnav a{font-size:.6rem}}
 .matrix{--acc:#00ff6a;--ok:#00ff6a}
