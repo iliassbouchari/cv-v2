@@ -177,8 +177,8 @@ addEventListener("keydown",function(e){var k=e.key.length===1?e.key.toLowerCase(
 
 /* ---------- language hook ---------- */
 function labels(t){$("badge").lastChild.textContent=t.avail;$("tterm").textContent=t.term;$("tin").placeholder=t.ph;$("tin").setAttribute("aria-label",t.ph);$("tcmds").setAttribute("aria-label",t.cmdhint)}
-function credly(){var c=$("top");if(!c||$("cr-chip"))return;var a=document.createElement("a");a.id="cr-chip";a.className="chip ltr";a.href=LINKS.credly;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Credly";a.style.cssText="text-decoration:none;color:inherit";c.appendChild(a)}
-window.onLang=function(l){credly();cur=X[l]?l:"fr";var t=X[cur];labels(t);nav(Object.assign({},T[cur],{proj:t.proj,skills:T[cur].skills}));stats(t);topo(t);projects(t);tl(t);contact(t);foot();reveal(document);decrypt()};
+function credly(){var c=$("top");if(!c||$("cr-chip"))return;var a=document.createElement("a");a.id="cr-chip";a.className="chip ltr";a.href=LINKS.credly;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Credly";a.style.cssText="text-decoration:none;color:#fff;background:#1d5fd1;border-color:#1d5fd1;font-weight:600";c.appendChild(a)}
+window.onLang=function(l){credly();cur=X[l]?l:"fr";var t=X[cur];labels(t);nav(Object.assign({},T[cur],{proj:t.proj,skills:T[cur].skills}));stats(t);projects(t);tl(t);contact(t);foot();reveal(document);decrypt()};
 function boot(){initNet();initTerm();prog();window.onLang(document.documentElement.lang||"fr");}
 boot();
 })();
